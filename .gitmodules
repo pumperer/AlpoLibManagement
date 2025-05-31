@@ -1,0 +1,3 @@
+[submodule "UnityProject/AlpoLib.Unity/Assets/AlpoLib/Core"]
+	path = UnityProject/AlpoLib.Unity/Assets/AlpoLib/Core
+	url = https://github.com/pumperer/AlpoLib-Core.git
