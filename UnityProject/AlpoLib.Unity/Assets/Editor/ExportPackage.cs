@@ -16,13 +16,19 @@ public static class ExportPackage
         Process("Util");
     }
     
-    [MenuItem("Packages/Export Package Data", priority = 201)]
+    [MenuItem("Packages/Export Package Res", priority = 201)]
+    public static void Export_Res()
+    {
+        Process("Res");
+    }
+    
+    [MenuItem("Packages/Export Package Data", priority = 202)]
     public static void Export_Data()
     {
         Process("Data");
     }
     
-    [MenuItem("Packages/Export Package UI", priority = 202)]
+    [MenuItem("Packages/Export Package UI", priority = 203)]
     public static void Export_UI()
     {
         Process("UI");
