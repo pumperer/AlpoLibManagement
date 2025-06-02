@@ -83,3 +83,6 @@ UnityProject/AlpoLib.Unity/[Aa]ssets/Unity.VisualScripting.Generated/VisualScrip
 UnityProject/AlpoLib.Unity/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db.meta
 UnityProject/AlpoLib.Unity/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers
 UnityProject/AlpoLib.Unity/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers.meta
+
+.idea/
+.vsconfig
