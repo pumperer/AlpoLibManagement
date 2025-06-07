@@ -10,3 +10,6 @@
 [submodule "UnityProject/AlpoLib.Unity/Assets/AlpoLib/Res"]
 	path = UnityProject/AlpoLib.Unity/Assets/AlpoLib/Res
 	url = https://github.com/pumperer/AlpoLib-Res.git
+[submodule "UnityProject/AlpoLib.Unity/Assets/AlpoLib/Data"]
+	path = UnityProject/AlpoLib.Unity/Assets/AlpoLib/Data
+	url = https://github.com/pumperer/AlpoLib-Data.git
