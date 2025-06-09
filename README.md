@@ -1,11 +1,12 @@
 # AlpoLib
 - 새로운 프로젝트를 진행할 때마다 사용했던 개인용 라이브러리입니다.
 - 아래 기능을 Submodule 로 포함하고 있습니다.
-  - Core : https://github.com/pumperer/AlpoLib-Core
-  - Util : https://github.com/pumperer/AlpoLib-Util
-  - Data : https://github.com/pumperer/AlpoLib-Data
+- 각 repo 의 readme 에 간단한 설명이 있습니다.
   - UI : https://github.com/pumperer/AlpoLib-UI
+  - Data : https://github.com/pumperer/AlpoLib-Data
   - Res : https://github.com/pumperer/AlpoLib-Res
+  - Util : https://github.com/pumperer/AlpoLib-Util
+  - Core : https://github.com/pumperer/AlpoLib-Core
 
 ## Unity Version
 - 6000.1.2f1
