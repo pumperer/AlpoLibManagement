@@ -10,7 +10,8 @@ namespace alpoLib.Sample
         protected override void OnAwake()
         {
             base.OnAwake();
-            Core.Module.Initialize();
+            alpoLib.Core.Module.Initialize();
+            alpoLib.Data.Module.Initialize(new alpoLib.Data.DataModuleInitParam());
             CoroutineTaskManager.Init(true);
             TaskScheduler.Init(true);
             _ = SceneManager.Initialize(this);
@@ -18,13 +19,7 @@ namespace alpoLib.Sample
 
         public override void OnOpen()
         {
-            base.OnOpen();
-            OpenNextScene();
-        }
-
-        private void OpenNextScene()
-        {
-            _ = SceneManager.Instance.OpenSceneAsync<TableLoadScene>();
+            _ = SceneManager.Instance.OpenSceneAsync<TitleScene>();
         }
     }
 }
