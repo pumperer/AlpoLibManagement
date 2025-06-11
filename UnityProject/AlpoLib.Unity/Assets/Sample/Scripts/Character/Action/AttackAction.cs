@@ -8,7 +8,5 @@ namespace alpoLib.Sample.Character
         public AttackAction(ActionContext actionContext) : base(actionContext)
         {
         }
-
-        public override string ActionName => "Attack";
     }
 }

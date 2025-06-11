@@ -1,17 +1,19 @@
 using System;
+using alpoLib.Sample.Behavior;
 using UnityEngine;
 
 namespace alpoLib.Sample.Character
 {
     public struct ActionContext
     {
+        public ActionState ActionState;
         public float ActionDuration;
         public Action<ActionBase> OnActionCompleted;
     }
 
     public abstract class ActionBase
     {
-        public abstract string ActionName { get; }
+        public ActionState State { get; }
 
         protected readonly float ActionDuration;
         protected readonly Action<ActionBase> OnActionCompleted;
@@ -20,6 +22,7 @@ namespace alpoLib.Sample.Character
 
         protected ActionBase(ActionContext actionContext)
         {
+            State = actionContext.ActionState;
             ActionDuration = actionContext.ActionDuration;
             OnActionCompleted = actionContext.OnActionCompleted;
         }

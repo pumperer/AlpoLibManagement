@@ -8,8 +8,6 @@ namespace alpoLib.Sample.Character
         {
         }
 
-        public override string ActionName => "Idle";
-
         public override void UpdateAction(float deltaTime)
         {
         }

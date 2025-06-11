@@ -24,11 +24,13 @@ namespace alpoLib.Sample.Character
 
             var idleAction = new IdleAction(new ActionContext()
             {
+                ActionState = ActionState.Idle,
                 ActionDuration = 0f,
                 OnActionCompleted = null,
             });
             var attackAction = new AttackAction(new ActionContext()
             {
+                ActionState = ActionState.Attack,
                 ActionDuration = 0.833f,
                 OnActionCompleted = OnActionCompleted
             });
@@ -89,6 +91,9 @@ namespace alpoLib.Sample.Character
 
         public void SetAction(ActionState actionState)
         {
+            if (CurrentAction != null && CurrentAction.State == actionState)
+                return;
+            
             CurrentAction?.CancelAction();
             if (!_actionMap.TryGetValue(actionState, out var action))
                 return;
@@ -99,7 +104,7 @@ namespace alpoLib.Sample.Character
             CurrentAction.StartAction();
 
             if (animator)
-                animator.CrossFade(CurrentAction.ActionName, 0.25f, _upperLayerIndex);
+                animator.CrossFade(CurrentAction.State.ToString(), 0.25f, _upperLayerIndex);
         }
     }
 }
