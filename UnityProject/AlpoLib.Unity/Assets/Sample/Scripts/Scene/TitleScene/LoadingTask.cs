@@ -1,3 +1,4 @@
+using alpoLib.UI.Scene;
 using alpoLib.Util;
 using UnityEngine;
 
@@ -81,8 +82,7 @@ namespace alpoLib.Sample.Scene
         
         protected override async Awaitable OnLoadingAsync(LoadingTaskMachine machine)
         {
-            await Awaitable.WaitForSecondsAsync(0.5f);
-            // Here you would typically load the scene, e.g., using SceneManager.LoadSceneAsync
+            _ = SceneManager.Instance.OpenSceneAsync<InGameScene>();
         }
     }
 }

@@ -89,7 +89,7 @@ namespace alpoLib.Sample.Character
                 animator.CrossFade(state.ToString(), 0.25f);
         }
 
-        public void SetAction(ActionState actionState)
+        public void SetAction(ActionState actionState, bool loop = false)
         {
             if (CurrentAction != null && CurrentAction.State == actionState)
                 return;
@@ -101,7 +101,7 @@ namespace alpoLib.Sample.Character
             if (CurrentAction == null)
                 return;
 
-            CurrentAction.StartAction();
+            CurrentAction.StartAction(loop);
 
             if (animator)
                 animator.CrossFade(CurrentAction.State.ToString(), 0.25f, _upperLayerIndex);

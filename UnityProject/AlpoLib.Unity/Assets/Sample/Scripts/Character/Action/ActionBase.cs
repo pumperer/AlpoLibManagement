@@ -19,6 +19,7 @@ namespace alpoLib.Sample.Character
         protected readonly Action<ActionBase> OnActionCompleted;
 
         protected float elapsedTime;
+        protected bool isLoop;
 
         protected ActionBase(ActionContext actionContext)
         {
@@ -38,11 +39,13 @@ namespace alpoLib.Sample.Character
 
         protected virtual void OnActionCancel()
         {
+            OnActionEnd();
         }
 
-        public virtual void StartAction()
+        public virtual void StartAction(bool loop = false)
         {
             elapsedTime = 0f;
+            isLoop = loop;
             OnActionStart();
         }
 
@@ -52,7 +55,8 @@ namespace alpoLib.Sample.Character
             if (elapsedTime < ActionDuration)
                 return;
 
-            OnActionEnd();
+            if (!isLoop)
+                OnActionEnd();
         }
 
         public virtual void CancelAction()

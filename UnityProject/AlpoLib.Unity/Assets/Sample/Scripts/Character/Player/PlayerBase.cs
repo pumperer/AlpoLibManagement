@@ -9,14 +9,14 @@ namespace alpoLib.Sample.Character
     [RequireComponent(typeof(CharacterController))]
     public abstract class PlayerBase : CharacterBase
     {
-        [Header("Movement Settings")] [SerializeField]
-        protected float moveSpeed = 5f;
+        [Header("Movement Settings")]
+        [SerializeField] protected float moveSpeed = 5f;
 
         [SerializeField] protected float gravity = -9.81f;
         [SerializeField] protected float jumpHeight = 2f;
 
-        [Header("Rotation Settings")] [SerializeField]
-        protected float rotationSpeed = 10f;
+        [Header("Rotation Settings")]
+        [SerializeField] protected float rotationSpeed = 10f;
 
         protected CharacterController Controller;
         protected PlayerInput PlayerInput;
