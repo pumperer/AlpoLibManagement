@@ -9,6 +9,7 @@ namespace alpoLib.Sample.Character
         public ActionState ActionState;
         public float ActionDuration;
         public Action<ActionBase> OnActionCompleted;
+        public CharacterBase Owner;
     }
 
     public abstract class ActionBase
@@ -17,6 +18,7 @@ namespace alpoLib.Sample.Character
 
         protected readonly float ActionDuration;
         protected readonly Action<ActionBase> OnActionCompleted;
+        protected CharacterBase Owner;
 
         protected float elapsedTime;
         protected bool isLoop;
@@ -26,6 +28,7 @@ namespace alpoLib.Sample.Character
             State = actionContext.ActionState;
             ActionDuration = actionContext.ActionDuration;
             OnActionCompleted = actionContext.OnActionCompleted;
+            Owner = actionContext.Owner;
         }
 
         protected virtual void OnActionStart()
@@ -62,6 +65,10 @@ namespace alpoLib.Sample.Character
         public virtual void CancelAction()
         {
             OnActionCancel();
+        }
+
+        public virtual void OnAnimationEventImpl(AnimationEvent animationEvent)
+        {
         }
     }
 }

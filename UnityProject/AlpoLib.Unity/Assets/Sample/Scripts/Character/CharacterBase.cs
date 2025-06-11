@@ -1,21 +1,29 @@
 using System.Collections.Generic;
 using alpoLib.Sample.Behavior;
+using alpoLib.Sample.Character.Weapon;
+using alpoLib.Sample.Scene;
+using alpoLib.Sample.Utility;
 using UnityEngine;
 using AnimatorState = alpoLib.Sample.Behavior.AnimatorState;
 
 namespace alpoLib.Sample.Character
 {
-    public abstract class CharacterBase : MonoBehaviour
+    public abstract class CharacterBase : MonoBehaviour, IAnimationEventReceiver
     {
+        [SerializeField] protected float maxHealth;
         [SerializeField] protected Animator animator;
+        [SerializeField] protected Collider hitCollider;
 
         protected AnimatorState? CurrentAnimatorState = null;
-
         protected ActionBase CurrentAction = null;
+        protected float currentHealth;
+        protected bool isDie = false;
 
         private int _upperLayerIndex = 1;
 
         private Dictionary<ActionState, ActionBase> _actionMap = new();
+
+        protected IHit HitInterface;
 
         private void Awake()
         {
@@ -32,14 +40,15 @@ namespace alpoLib.Sample.Character
             {
                 ActionState = ActionState.Attack,
                 ActionDuration = 0.833f,
-                OnActionCompleted = OnActionCompleted
+                OnActionCompleted = OnActionCompleted,
+                Owner = this,
             });
             _actionMap.Add(ActionState.Idle, idleAction);
             _actionMap.Add(ActionState.Attack, attackAction);
 
             SetState(AnimatorState.Idle);
             SetAction(ActionState.Idle);
-
+            
             OnAwake();
         }
 
@@ -52,6 +61,14 @@ namespace alpoLib.Sample.Character
         {
             CurrentAction?.UpdateAction(Time.deltaTime);
             OnUpdate();
+        }
+
+        public void Initialize(IHit hit)
+        {
+            currentHealth = maxHealth;
+            isDie = false;
+            hitCollider.enabled = true;
+            HitInterface = hit;
         }
 
         protected virtual void OnAwake()
@@ -69,6 +86,19 @@ namespace alpoLib.Sample.Character
 
         }
 
+        protected virtual void OnActionStartImpl(ActionBase action)
+        {
+            
+        }
+        
+        protected virtual void OnActionEndImpl(ActionBase action)
+        {
+        }
+
+        protected virtual void OnDamageImpl(CharacterBase attacker, float damage)
+        {
+        }
+
         private void OnActionCompleted(ActionBase completedAction)
         {
             if (CurrentAction == completedAction)
@@ -76,6 +106,7 @@ namespace alpoLib.Sample.Character
                 CurrentAction = null;
                 if (animator)
                     animator.CrossFade(nameof(AnimatorState.Idle), 0.25f, _upperLayerIndex);
+                OnActionEndImpl(completedAction);
             }
         }
 
@@ -102,9 +133,49 @@ namespace alpoLib.Sample.Character
                 return;
 
             CurrentAction.StartAction(loop);
+            OnActionStartImpl(CurrentAction);
 
             if (animator)
                 animator.CrossFade(CurrentAction.State.ToString(), 0.25f, _upperLayerIndex);
+        }
+
+        protected ActionBase GetAction(ActionState actionState)
+        {
+            if (_actionMap.TryGetValue(actionState, out var action))
+                return action;
+            return null;
+        }
+
+        public void AttackTo(WeaponBase weapon, CharacterBase characterToAttack)
+        {
+            if (characterToAttack.isDie)
+                return;
+            
+            HitInterface?.OnHit(this, weapon.Damage, characterToAttack);
+            characterToAttack.DamageFrom(this, weapon.Damage);
+            
+        }
+
+        public void DamageFrom(CharacterBase attacker, float damage)
+        {
+            if (isDie)
+                return;
+            
+            currentHealth -= damage;
+            OnDamageImpl(attacker, damage);
+            if (currentHealth <= 0)
+                Die();
+        }
+
+        public void Die()
+        {
+            isDie = true;
+            hitCollider.enabled = false;
+        }
+
+        public void OnAnimationEventImpl(AnimationEvent animationEvent)
+        {
+            CurrentAction?.OnAnimationEventImpl(animationEvent);
         }
     }
 }

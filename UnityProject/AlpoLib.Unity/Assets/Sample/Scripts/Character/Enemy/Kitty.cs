@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 namespace alpoLib.Sample.Character
 {
-    public class Kitty : CharacterBase
+    public class Kitty : EnemyBase
     {
         [SerializeField] private NavMeshAgent navMeshAgent;
     }

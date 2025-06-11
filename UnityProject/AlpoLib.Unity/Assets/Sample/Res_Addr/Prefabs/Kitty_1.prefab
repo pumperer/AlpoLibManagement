@@ -49,7 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 038692bee5b8cb946a425a26cb1136c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
   animator: {fileID: 1817325047723127933}
+  hitCollider: {fileID: 3265024311136946572}
   navMeshAgent: {fileID: 3928865396075254654}
 --- !u!54 &-6063158667104400492
 Rigidbody:
