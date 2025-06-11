@@ -25,24 +25,55 @@ public abstract class CharacterBase : MonoBehaviour
 
     private AttackAction _attackAction;
     
-    protected virtual void Awake()
+    private void Awake()
     {
         if (animator)
             _upperLayerIndex = animator.GetLayerIndex("Upper");
-
-        _attackAction = new AttackAction();
+        
+        _attackAction = new AttackAction(new ActionContext()
+        {
+            ActionDuration = 0.833f,
+            OnActionCompleted = OnActionCompleted
+        });
+        
+        SetState(AnimatorState.Idle);
+        
+        OnAwake();
     }
 
     private void Start()
     {
-        SetState(AnimatorState.Idle);
+        OnStart();
+    }
+
+    private void Update()
+    {
+        CurrentAction?.UpdateAction(Time.deltaTime);
+        OnUpdate();
+    }
+
+    protected virtual void OnAwake()
+    {
+        
+    }
+
+    protected virtual void OnStart()
+    {
+        
     }
     
+    protected virtual void OnUpdate()
+    {
+        
+    }
+
     private void OnActionCompleted(ActionBase completedAction)
     {
         if (CurrentAction == completedAction)
         {
             CurrentAction = null;
+            if (animator)
+                animator.CrossFade(nameof(AnimatorState.Idle), 0.25f, _upperLayerIndex);
         }
     }
     

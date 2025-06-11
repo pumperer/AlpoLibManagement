@@ -21,9 +21,9 @@ public abstract class PlayerBase : CharacterBase
     private Vector3 velocity;
     private bool isJumping;
     
-    protected override void Awake()
+    protected override void OnAwake()
     {
-        base.Awake();
+        base.OnAwake();
         Controller = GetComponent<CharacterController>();
         PlayerInput = GetComponent<PlayerInput>();
     }
@@ -38,8 +38,9 @@ public abstract class PlayerBase : CharacterBase
         PlayerInput.actions.Disable();
     }
 
-    protected void Update()
+    protected override void OnUpdate()
     {
+        base.OnUpdate();
         if (!Mathf.Approximately(inputMove.sqrMagnitude, 0))
         {
             var move = new Vector3(inputMove.x, 0, inputMove.y);
