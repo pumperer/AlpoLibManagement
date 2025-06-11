@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace alpoLib.Sample.Scene
 {
-    [SceneDefine("Addr/Scenes/TitleScene.unity", SceneResourceType.Addressable)]
+    [SceneDefine("Sample/Addr/Scenes/TitleScene.unity", SceneResourceType.Addressable)]
     public class TitleScene : SceneBase, ILoadingProgressChangeListener
     {
         [SerializeField] private UIProgressComp loadingProgressComp;

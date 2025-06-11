@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace alpoLib.Sample
 {
-    [PrefabPath("Addr/UI/Popup/MessagePopup.prefab")]
+    [PrefabPath("Sample/Addr/UI/Popup/MessagePopup.prefab")]
     public class MessagePopup : PopupBase
     {
         [SerializeField] protected TMP_Text messageText;

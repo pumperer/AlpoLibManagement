@@ -13,7 +13,7 @@ namespace alpoLib.Sample.Scene
         void OnHit(CharacterBase attacker, float damage, CharacterBase hitter);
     }
 
-    [SceneDefine("Addr/Scenes/InGameScene.unity", SceneResourceType.Addressable)]
+    [SceneDefine("Sample/Addr/Scenes/InGameScene.unity", SceneResourceType.Addressable)]
     public class InGameScene : SceneBaseWithUI<InGameSceneUI>, IHit
     {
         [SerializeField] protected MainPlayer mainPlayer;
