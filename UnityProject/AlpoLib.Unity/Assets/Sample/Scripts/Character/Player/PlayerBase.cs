@@ -89,6 +89,6 @@ public abstract class PlayerBase : CharacterBase
         if (context.phase != InputActionPhase.Performed)
             return;
         
-        SetAttackAction();
+        SetAction(ActionState.Attack);
     }
 }

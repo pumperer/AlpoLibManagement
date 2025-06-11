@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.Behavior;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -10,6 +11,11 @@ public enum AnimatorState
     Move,
     Run,
     Bread,
+}
+
+public enum ActionState
+{
+    Idle,
     Attack,
 }
 
@@ -23,20 +29,28 @@ public abstract class CharacterBase : MonoBehaviour
 
     private int _upperLayerIndex = 1;
 
-    private AttackAction _attackAction;
+    private Dictionary<ActionState, ActionBase> _actionMap = new();
     
     private void Awake()
     {
         if (animator)
             _upperLayerIndex = animator.GetLayerIndex("Upper");
         
-        _attackAction = new AttackAction(new ActionContext()
+        var idleAction = new IdleAction(new ActionContext()
+        {
+            ActionDuration = 0f,
+            OnActionCompleted = null,
+        });
+        var attackAction = new AttackAction(new ActionContext()
         {
             ActionDuration = 0.833f,
             OnActionCompleted = OnActionCompleted
         });
+        _actionMap.Add(ActionState.Idle, idleAction);
+        _actionMap.Add(ActionState.Attack, attackAction);
         
         SetState(AnimatorState.Idle);
+        SetAction(ActionState.Idle);
         
         OnAwake();
     }
@@ -87,10 +101,12 @@ public abstract class CharacterBase : MonoBehaviour
             animator.CrossFade(state.ToString(), 0.25f);
     }
 
-    public void SetAttackAction()
+    public void SetAction(ActionState actionState)
     {
         CurrentAction?.CancelAction();
-        CurrentAction = _attackAction;
+        if (!_actionMap.TryGetValue(actionState, out var action))
+            return;
+        CurrentAction = action;
         if (CurrentAction == null)
             return;
         
