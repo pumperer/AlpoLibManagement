@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public class IdleAction : ActionBase
+namespace alpoLib.Sample.Character
 {
-    public IdleAction(ActionContext actionContext) : base(actionContext)
+    public class IdleAction : ActionBase
     {
-    }
+        public IdleAction(ActionContext actionContext) : base(actionContext)
+        {
+        }
 
-    public override string ActionName => "Idle";
+        public override string ActionName => "Idle";
 
-    public override void UpdateAction(float deltaTime)
-    {
+        public override void UpdateAction(float deltaTime)
+        {
+        }
     }
 }

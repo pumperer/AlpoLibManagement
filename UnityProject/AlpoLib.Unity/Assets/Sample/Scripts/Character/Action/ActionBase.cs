@@ -1,57 +1,60 @@
 using System;
 using UnityEngine;
 
-public struct ActionContext
+namespace alpoLib.Sample.Character
 {
-    public float ActionDuration;
-    public Action<ActionBase> OnActionCompleted;
-}
-
-public abstract class ActionBase
-{
-    public abstract string ActionName { get; }
-
-    protected readonly float ActionDuration;
-    protected readonly Action<ActionBase> OnActionCompleted;
-    
-    protected float elapsedTime;
-
-    protected ActionBase(ActionContext actionContext)
+    public struct ActionContext
     {
-        ActionDuration = actionContext.ActionDuration;
-        OnActionCompleted = actionContext.OnActionCompleted;
-    }
-    
-    protected virtual void OnActionStart()
-    {
+        public float ActionDuration;
+        public Action<ActionBase> OnActionCompleted;
     }
 
-    protected virtual void OnActionEnd()
+    public abstract class ActionBase
     {
-        OnActionCompleted?.Invoke(this);
-    }
+        public abstract string ActionName { get; }
 
-    protected virtual void OnActionCancel()
-    {
-    }
+        protected readonly float ActionDuration;
+        protected readonly Action<ActionBase> OnActionCompleted;
 
-    public virtual void StartAction()
-    {
-        elapsedTime = 0f;
-        OnActionStart();
-    }
-    
-    public virtual void UpdateAction(float deltaTime)
-    {
-        elapsedTime += deltaTime;
-        if (elapsedTime < ActionDuration)
-            return;
-        
-        OnActionEnd();
-    }
-    
-    public virtual void CancelAction()
-    {
-        OnActionCancel();
+        protected float elapsedTime;
+
+        protected ActionBase(ActionContext actionContext)
+        {
+            ActionDuration = actionContext.ActionDuration;
+            OnActionCompleted = actionContext.OnActionCompleted;
+        }
+
+        protected virtual void OnActionStart()
+        {
+        }
+
+        protected virtual void OnActionEnd()
+        {
+            OnActionCompleted?.Invoke(this);
+        }
+
+        protected virtual void OnActionCancel()
+        {
+        }
+
+        public virtual void StartAction()
+        {
+            elapsedTime = 0f;
+            OnActionStart();
+        }
+
+        public virtual void UpdateAction(float deltaTime)
+        {
+            elapsedTime += deltaTime;
+            if (elapsedTime < ActionDuration)
+                return;
+
+            OnActionEnd();
+        }
+
+        public virtual void CancelAction()
+        {
+            OnActionCancel();
+        }
     }
 }

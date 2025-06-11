@@ -2,7 +2,7 @@ using alpoLib.Sample.UI;
 using alpoLib.UI.Scene;
 using UnityEngine;
 
-namespace alpoLib.Sample
+namespace alpoLib.Sample.Scene
 {
     [SceneDefine("Addr/Scenes/TitleScene.unity", SceneResourceType.Addressable)]
     public class TitleScene : SceneBase, ILoadingProgressChangeListener

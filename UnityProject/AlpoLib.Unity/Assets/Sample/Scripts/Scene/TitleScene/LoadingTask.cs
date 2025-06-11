@@ -1,7 +1,7 @@
 using alpoLib.Util;
 using UnityEngine;
 
-namespace alpoLib.Sample
+namespace alpoLib.Sample.Scene
 {
     public interface ILoadingProgressChangeListener
     {

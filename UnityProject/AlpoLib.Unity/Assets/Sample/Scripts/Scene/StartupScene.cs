@@ -2,7 +2,7 @@ using alpoLib.UI.Scene;
 using alpoLib.Util;
 using UnityEngine;
 
-namespace alpoLib.Sample
+namespace alpoLib.Sample.Scene
 {
     [SceneDefine]
     public class StartupScene : SceneBase

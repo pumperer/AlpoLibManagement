@@ -1,7 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Kitty : CharacterBase
+namespace alpoLib.Sample.Character
 {
-    [SerializeField] private NavMeshAgent navMeshAgent;
+    public class Kitty : CharacterBase
+    {
+        [SerializeField] private NavMeshAgent navMeshAgent;
+    }
 }

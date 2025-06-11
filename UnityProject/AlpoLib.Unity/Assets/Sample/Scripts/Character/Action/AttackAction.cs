@@ -1,11 +1,14 @@
 using System;
 using UnityEngine;
 
-public class AttackAction : ActionBase
+namespace alpoLib.Sample.Character
 {
-    public AttackAction(ActionContext actionContext) : base(actionContext)
+    public class AttackAction : ActionBase
     {
-    }
+        public AttackAction(ActionContext actionContext) : base(actionContext)
+        {
+        }
 
-    public override string ActionName => "Attack";
+        public override string ActionName => "Attack";
+    }
 }
