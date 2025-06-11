@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace alpoLib.Sample.InGame.Feature.UI
 {
-    public class InGameScoreOnHitFeatureUI : InGameFeatureUIBase<InGameScoreOnHitFeature>
+    public class InGameScoreOnHitAndKillFeatureUI : InGameFeatureUIBase<InGameScoreOnHitAndKillFeature>
     {
-        public InGameScoreOnHitFeatureUI(InGameSceneUI sceneUI) : base(sceneUI)
+        public InGameScoreOnHitAndKillFeatureUI(InGameSceneUI sceneUI) : base(sceneUI)
         {
         }
         

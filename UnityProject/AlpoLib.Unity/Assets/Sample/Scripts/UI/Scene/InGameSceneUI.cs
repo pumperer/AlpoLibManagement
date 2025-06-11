@@ -14,7 +14,7 @@ namespace alpoLib.Sample.UI
         public override void OnInitialize()
         {
             base.OnInitialize();
-            AddFeatureUI(new InGameScoreOnHitFeatureUI(this));
+            AddFeatureUI(new InGameScoreOnHitAndKillFeatureUI(this));
         }
 
         private void AddFeatureUI(IInGameFeatureUI featureUI)

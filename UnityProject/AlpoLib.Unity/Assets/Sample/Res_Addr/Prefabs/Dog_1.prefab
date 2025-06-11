@@ -1268,6 +1268,7 @@ GameObject:
   - component: {fileID: 3850628287920021347}
   - component: {fileID: 4152000390452072071}
   - component: {fileID: 1476546977084967793}
+  - component: {fileID: 7318273612933330600}
   m_Layer: 13
   m_Name: Dog_1
   m_TagString: Untagged
@@ -1506,6 +1507,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11419c20cb92fdb4ab5799db2de4c329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &7318273612933330600
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066896392038628118}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2066896392038628120
 GameObject:
   m_ObjectHideFlags: 0
@@ -2597,6 +2625,7 @@ GameObject:
   - component: {fileID: 4624592985479609765}
   - component: {fileID: 39339444806958565}
   - component: {fileID: 6738178496146430142}
+  - component: {fileID: 5309660577938185803}
   m_Layer: 13
   m_Name: AttackRange
   m_TagString: Untagged
@@ -2653,6 +2682,18 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5309660577938185803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7501267561486393725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e571a30c6d217b45a422277caaf63c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2958915110833922231
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2840,7 +2881,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17889fa37cd2b86419e929c0f6aa5d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponCollider: {fileID: 8866916953022844061}
   attackRange: 1.5
   attackDamage: 10
 --- !u!4 &3951229398020510376 stripped

@@ -1,33 +1,53 @@
 using System;
 using System.Collections.Generic;
 using alpoLib.Sample.Character;
+using alpoLib.Sample.InGame;
 using alpoLib.Sample.InGame.Feature;
 using alpoLib.Sample.UI;
+using alpoLib.UI;
 using alpoLib.UI.Scene;
 using UnityEngine;
 
 namespace alpoLib.Sample.Scene
 {
-    public interface IHit
+    public interface IFeatureInterface
     {
         void OnHit(CharacterBase attacker, float damage, CharacterBase hitter);
+        void OnKill(CharacterBase attacker, CharacterBase killed);
     }
 
     [SceneDefine("Sample/Addr/Scenes/InGameScene.unity", SceneResourceType.Addressable)]
-    public class InGameScene : SceneBaseWithUI<InGameSceneUI>, IHit
+    public class InGameScene : SceneBaseWithUI<InGameSceneUI>, IFeatureInterface
     {
         [SerializeField] protected MainPlayer mainPlayer;
 
         private HashSet<IInGameFeature> _features = new();
         private Dictionary<Type, IInGameFeature> _featureDic = new();
 
+        protected override void OnAwake()
+        {
+            base.OnAwake();
+            IsLoadingComplete = false;
+        }
+
         public override void OnOpen()
         {
             base.OnOpen();
-            AddFeature(new InGameScoreOnHitFeature(this, 10));
+            _ = OnLoadAsync();
+        }
+        
+        private async Awaitable OnLoadAsync()
+        {
+            AddFeature(new InGameScoreOnHitAndKillFeature(this, 10, 100));
             SceneUI.InitFeatures();
             
+            await EnemySpawner.Instance.LoadAsync();
+            
             mainPlayer.Initialize(this);
+            for (int i = 0; i < 5; i++)
+                SpawnEnemy();
+
+            IsLoadingComplete = true;
         }
 
         private void AddFeature(InGameFeatureBase feature)
@@ -52,6 +72,20 @@ namespace alpoLib.Sample.Scene
         {
             foreach (var feature in _features)
                 feature.OnHit(attacker, damage, hitter);
+        }
+        
+        public void OnKill(CharacterBase attacker, CharacterBase killed)
+        {
+            foreach (var feature in _features)
+                feature.OnKill(attacker, killed);
+            
+            Invoke(nameof(SpawnEnemy), 1f);
+        }
+        
+        public void SpawnEnemy()
+        {
+            var enemy = EnemySpawner.Instance.SpawnEnemy();
+            enemy.Initialize(this);
         }
     }
 }

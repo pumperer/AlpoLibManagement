@@ -1,12 +1,14 @@
 using System;
 using alpoLib.Core.Foundation;
 using alpoLib.Sample.Behavior;
+using alpoLib.Util;
 using UnityEngine;
 
 namespace alpoLib.Sample.Character
 {
     public class AttackRange : MonoBehaviour
     {
+        private TriggerObserver _triggerObserver;
         private static int _enemyLayer;
         [SerializeField] protected SphereCollider rangeCollider;
         private CharacterBase _character;
@@ -14,32 +16,47 @@ namespace alpoLib.Sample.Character
         
         private void Awake()
         {
+            _triggerObserver = GetComponent<TriggerObserver>();
+            _triggerObserver.OnTriggerEnterEvent += OnEnter;
+            _triggerObserver.OnTriggerExitEvent += OnExit;
             _character = GetComponentInParent<CharacterBase>();
             _enemyLayer = LayerMask.NameToLayer("Enemy");
         }
-        
+
+        private void OnDestroy()
+        {
+            if (_triggerObserver)
+            {
+                _triggerObserver.OnTriggerEnterEvent -= OnEnter;
+                _triggerObserver.OnTriggerExitEvent -= OnExit;
+            }
+        }
+
         public void SetRange(float range)
         {
             if (!rangeCollider)
                 return;
             rangeCollider.radius = range;
-            // rangeCollider.size = new Vector3(1, 1, range);
-            // rangeCollider.center = new Vector3(0, 0.5f, range * 0.5f);
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnEnter(Collider other)
         {
-            if (other.gameObject.layer != _enemyLayer)
+            if (!other || other.gameObject.layer != _enemyLayer)
                 return;
             Debug.Log($"Object entered attack range: {other.name}");
             _shouldAttack++;
             if (_shouldAttack == 1)
                 _character.SetAction(ActionState.Attack, true);
+
+            var n = other.GetComponent<TriggerExitNotifier>();
+            if (!n)
+                n = other.gameObject.AddComponent<TriggerExitNotifier>();
+            n.Initialize(_triggerObserver);
         }
         
-        private void OnTriggerExit(Collider other)
+        private void OnExit(Collider other)
         {
-            if (other.gameObject.layer != _enemyLayer)
+            if (!other || other.gameObject.layer != _enemyLayer)
                 return;
             Debug.Log($"Object exited attack range: {other.name}");
             _shouldAttack--;

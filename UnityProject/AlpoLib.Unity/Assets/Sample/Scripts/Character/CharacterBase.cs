@@ -23,7 +23,7 @@ namespace alpoLib.Sample.Character
 
         private Dictionary<ActionState, ActionBase> _actionMap = new();
 
-        protected IHit HitInterface;
+        protected IFeatureInterface FeatureInterfaceInterface;
 
         private void Awake()
         {
@@ -63,12 +63,12 @@ namespace alpoLib.Sample.Character
             OnUpdate();
         }
 
-        public void Initialize(IHit hit)
+        public void Initialize(IFeatureInterface featureInterface)
         {
             currentHealth = maxHealth;
             isDie = false;
             hitCollider.enabled = true;
-            HitInterface = hit;
+            FeatureInterfaceInterface = featureInterface;
         }
 
         protected virtual void OnAwake()
@@ -151,26 +151,37 @@ namespace alpoLib.Sample.Character
             if (characterToAttack.isDie)
                 return;
             
-            HitInterface?.OnHit(this, weapon.Damage, characterToAttack);
-            characterToAttack.DamageFrom(this, weapon.Damage);
+            characterToAttack.DamageFrom(this, weapon);
             
         }
 
-        public void DamageFrom(CharacterBase attacker, float damage)
+        protected void DamageFrom(CharacterBase attacker, WeaponBase weapon)
         {
             if (isDie)
                 return;
-            
+
+            var damage = weapon.Damage;
             currentHealth -= damage;
             OnDamageImpl(attacker, damage);
+            FeatureInterfaceInterface?.OnHit(attacker, damage, this);
             if (currentHealth <= 0)
+            {
                 Die();
+                FeatureInterfaceInterface?.OnKill(attacker, this);
+            }
         }
 
         public void Die()
         {
             isDie = true;
-            hitCollider.enabled = false;
+            // hitCollider.enabled = false;
+            gameObject.SetActive(false);
+            OnDie();
+        }
+
+        protected virtual void OnDie()
+        {
+            
         }
 
         public void OnAnimationEventImpl(AnimationEvent animationEvent)

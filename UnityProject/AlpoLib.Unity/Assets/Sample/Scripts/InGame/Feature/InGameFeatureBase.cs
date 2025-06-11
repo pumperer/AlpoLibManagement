@@ -15,7 +15,7 @@ namespace alpoLib.Sample.InGame.Feature
 
         void OnUpdate(float deltaTime, float timeScale);
         void OnHit(CharacterBase attacker, float damage, CharacterBase hitter);
-        void OnKill(CharacterBase killed);
+        void OnKill(CharacterBase attacker, CharacterBase killed);
         
     }
     
@@ -50,7 +50,7 @@ namespace alpoLib.Sample.InGame.Feature
         {
         }
         
-        public virtual void OnKill(CharacterBase killed)
+        public virtual void OnKill(CharacterBase attacker, CharacterBase killed)
         {
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using alpoLib.Sample.Character.Weapon;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ namespace alpoLib.Sample.Character
 {
     public class AttackAction : ActionBase
     {
+        private Collider[] _hits = new Collider[10];
         private WeaponBase _weapon;
         
         public AttackAction(ActionContext actionContext) : base(actionContext)
@@ -23,19 +25,24 @@ namespace alpoLib.Sample.Character
                 return;
 
             var pos = Owner.transform.position;
-            var hits = Physics.OverlapSphere(pos, _weapon.Range);
-            if (hits.Length == 0)
+            Array.Fill(_hits, null);
+            var size = Physics.OverlapSphereNonAlloc(pos, _weapon.Range, _hits, LayerMask.GetMask("Enemy"));
+            if (size == 0)
             {
                 Debug.LogWarning("No enemies in range for attack.");
                 return;
             }
-            foreach (var hit in hits)
+
+            for (var index = 0; index < size; index++)
             {
+                var hit = _hits[index];
+                if (!hit)
+                    continue;
                 if (hit.gameObject.layer != LayerMask.NameToLayer("Enemy"))
                     continue;
                 var dir = hit.transform.position - pos;
                 var angle = Vector3.Angle(Owner.transform.forward, dir.normalized);
-                if (angle <= 15f)
+                if (angle <= 90f)
                 {
                     if (hit.TryGetComponent(out EnemyBase enemy))
                     {
