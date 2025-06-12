@@ -14,7 +14,8 @@ new() { NameHash = 42386432, TypeHash = 1798982289 }, /* Int32 RewardGroupId */
 new() { NameHash = 2543258826, TypeHash = 1798982289 }, /* Int32 Sequence */
 new() { NameHash = 1714641353, TypeHash = 3333469098 }, /* CustomBoolean Status */
 new() { NameHash = 4214230326, TypeHash = 1798982289 }, /* Int32 Id */
-/* Definition Count: 6 */
+new() { NameHash = 3871067742, TypeHash = 3333469098 }, /* CustomBoolean IsActive */
+/* Definition Count: 7 */
 };
 public System.Int32 __r_AchievementId_Ovr { set { AchievementId = value; } }
 public System.Int32 __r_GoalCount_Ovr { set { GoalCount = value; } }
@@ -22,6 +23,7 @@ public System.Int32 __r_RewardGroupId_Ovr { set { RewardGroupId = value; } }
 public System.Int32 __r_Sequence_Ovr { set { Sequence = value; } }
 public alpoLib.Core.Foundation.CustomBoolean __r_Status_Ovr { set { Status = value; } }
 public System.Int32 __r_Id_Ovr { set { Id = value; } }
+public alpoLib.Core.Foundation.CustomBoolean __r_IsActive_Ovr { set { IsActive = value; } }
 }
 public sealed class __r_AchievementDetailBase_1353023679_Serializer : SerializerBase<alpoLib.Sample.Data.AchievementDetailBase> {
 public override SchemeDefinition[] GetSchemeDefinitions() { return __r_AchievementDetailBase_1353023679_Wrapped.__schema__; }
@@ -33,6 +35,7 @@ da.__r_RewardGroupId_Ovr = stream.ReadS32();
 da.__r_Sequence_Ovr = stream.ReadS32();
 da.__r_Status_Ovr = stream.ReadCustomBoolean();
 da.__r_Id_Ovr = stream.ReadS32();
+da.__r_IsActive_Ovr = stream.ReadCustomBoolean();
 return da; }
 public override void Serialize(BufferStream stream, alpoLib.Sample.Data.AchievementDetailBase da) {
 stream.WriteS32(da.AchievementId);
@@ -41,12 +44,14 @@ stream.WriteS32(da.RewardGroupId);
 stream.WriteS32(da.Sequence);
 stream.WriteCustomBoolean(da.Status);
 stream.WriteS32(da.Id);
+stream.WriteCustomBoolean(da.IsActive);
 }
 public override alpoLib.Sample.Data.AchievementDetailBase JsonToObject(JToken token) {
 var da = new alpoLib.Sample.Data.AchievementDetailBase();
 da.AchievementId = token["achievement_id"] != null ? token["achievement_id"].ToObject<System.Int32>() : default;
 da.GoalCount = token["goal_count"] != null ? token["goal_count"].ToObject<System.Int32>() : default;
-da.Id = token["id"] != null ? token["id"].ToObject<System.Int32>() : default;
+da.Id = token["Id"] != null ? token["Id"].ToObject<System.Int32>() : default;
+da.IsActive = token["IsActive"] != null ? token["IsActive"].ToObject<alpoLib.Core.Foundation.CustomBoolean>() : default;
 da.RewardGroupId = token["reward_group_id"] != null ? token["reward_group_id"].ToObject<System.Int32>() : default;
 da.Sequence = token["sequence"] != null ? token["sequence"].ToObject<System.Int32>() : default;
 da.Status = token["status"] != null ? token["status"].ToObject<alpoLib.Core.Foundation.CustomBoolean>() : default;
@@ -67,12 +72,14 @@ new() { NameHash = 243566418, TypeHash = 566847661 }, /* Goal Goal */
 new() { NameHash = 2543258826, TypeHash = 1798982289 }, /* Int32 Sequence */
 new() { NameHash = 1714641353, TypeHash = 3333469098 }, /* CustomBoolean Status */
 new() { NameHash = 4214230326, TypeHash = 1798982289 }, /* Int32 Id */
-/* Definition Count: 11 */
+new() { NameHash = 3871067742, TypeHash = 3333469098 }, /* CustomBoolean IsActive */
+/* Definition Count: 12 */
 };
 public alpoLib.Sample.Data.Goal __r_Goal_Ovr { set { Goal = value; } }
 public System.Int32 __r_Sequence_Ovr { set { Sequence = value; } }
 public alpoLib.Core.Foundation.CustomBoolean __r_Status_Ovr { set { Status = value; } }
 public System.Int32 __r_Id_Ovr { set { Id = value; } }
+public alpoLib.Core.Foundation.CustomBoolean __r_IsActive_Ovr { set { IsActive = value; } }
 }
 public sealed class __r_AchievementSummaryBase_2225946754_Serializer : SerializerBase<alpoLib.Sample.Data.AchievementSummaryBase> {
 public override SchemeDefinition[] GetSchemeDefinitions() { return __r_AchievementSummaryBase_2225946754_Wrapped.__schema__; }
@@ -82,12 +89,14 @@ da.__r_Goal_Ovr = DeserializeComp<alpoLib.Sample.Data.Goal, __r_Goal_775933579_S
 da.__r_Sequence_Ovr = stream.ReadS32();
 da.__r_Status_Ovr = stream.ReadCustomBoolean();
 da.__r_Id_Ovr = stream.ReadS32();
+da.__r_IsActive_Ovr = stream.ReadCustomBoolean();
 return da; }
 public override void Serialize(BufferStream stream, alpoLib.Sample.Data.AchievementSummaryBase da) {
 SerializeComp<alpoLib.Sample.Data.Goal, __r_Goal_775933579_Serializer>(stream, da.Goal);
 stream.WriteS32(da.Sequence);
 stream.WriteCustomBoolean(da.Status);
 stream.WriteS32(da.Id);
+stream.WriteCustomBoolean(da.IsActive);
 }
 public override alpoLib.Sample.Data.AchievementSummaryBase JsonToObject(JToken token) {
 var da = new alpoLib.Sample.Data.AchievementSummaryBase();
@@ -100,7 +109,8 @@ GoalValue = token["goal_value"] != null ? token["goal_value"].ToObject<System.In
 GoalCount = token["goal_count"] != null ? token["goal_count"].ToObject<System.Int32>() : default,
 GoalCountMethod = token["goal_count_method"] != null ? token["goal_count_method"].ToObject<alpoLib.Sample.Data.GoalCountMethod>() : default,
 };
-da.Id = token["id"] != null ? token["id"].ToObject<System.Int32>() : default;
+da.Id = token["Id"] != null ? token["Id"].ToObject<System.Int32>() : default;
+da.IsActive = token["IsActive"] != null ? token["IsActive"].ToObject<alpoLib.Core.Foundation.CustomBoolean>() : default;
 da.Sequence = token["sequence"] != null ? token["sequence"].ToObject<System.Int32>() : default;
 da.Status = token["status"] != null ? token["status"].ToObject<alpoLib.Core.Foundation.CustomBoolean>() : default;
 return da; }
@@ -159,12 +169,14 @@ new() { NameHash = 3492698941, TypeHash = 1798982289 }, /* Int32 Grade */
 new() { NameHash = 1701603989, TypeHash = 1798982289 }, /* Int32 Gold */
 new() { NameHash = 1714641353, TypeHash = 3333469098 }, /* CustomBoolean Status */
 new() { NameHash = 4214230326, TypeHash = 1798982289 }, /* Int32 Id */
-/* Definition Count: 4 */
+new() { NameHash = 3871067742, TypeHash = 3333469098 }, /* CustomBoolean IsActive */
+/* Definition Count: 5 */
 };
 public System.Int32 __r_Grade_Ovr { set { Grade = value; } }
 public System.Int32 __r_Gold_Ovr { set { Gold = value; } }
 public alpoLib.Core.Foundation.CustomBoolean __r_Status_Ovr { set { Status = value; } }
 public System.Int32 __r_Id_Ovr { set { Id = value; } }
+public alpoLib.Core.Foundation.CustomBoolean __r_IsActive_Ovr { set { IsActive = value; } }
 }
 public sealed class __r_CharacterAwakeningCostBase_1396567940_Serializer : SerializerBase<alpoLib.Sample.Data.CharacterAwakeningCostBase> {
 public override SchemeDefinition[] GetSchemeDefinitions() { return __r_CharacterAwakeningCostBase_1396567940_Wrapped.__schema__; }
@@ -174,18 +186,21 @@ da.__r_Grade_Ovr = stream.ReadS32();
 da.__r_Gold_Ovr = stream.ReadS32();
 da.__r_Status_Ovr = stream.ReadCustomBoolean();
 da.__r_Id_Ovr = stream.ReadS32();
+da.__r_IsActive_Ovr = stream.ReadCustomBoolean();
 return da; }
 public override void Serialize(BufferStream stream, alpoLib.Sample.Data.CharacterAwakeningCostBase da) {
 stream.WriteS32(da.Grade);
 stream.WriteS32(da.Gold);
 stream.WriteCustomBoolean(da.Status);
 stream.WriteS32(da.Id);
+stream.WriteCustomBoolean(da.IsActive);
 }
 public override alpoLib.Sample.Data.CharacterAwakeningCostBase JsonToObject(JToken token) {
 var da = new alpoLib.Sample.Data.CharacterAwakeningCostBase();
 da.Gold = token["gold"] != null ? token["gold"].ToObject<System.Int32>() : default;
 da.Grade = token["grade"] != null ? token["grade"].ToObject<System.Int32>() : default;
-da.Id = token["id"] != null ? token["id"].ToObject<System.Int32>() : default;
+da.Id = token["Id"] != null ? token["Id"].ToObject<System.Int32>() : default;
+da.IsActive = token["IsActive"] != null ? token["IsActive"].ToObject<alpoLib.Core.Foundation.CustomBoolean>() : default;
 da.Status = token["status"] != null ? token["status"].ToObject<alpoLib.Core.Foundation.CustomBoolean>() : default;
 return da; }
 public override void ObjectToJson(JToken token, alpoLib.Sample.Data.CharacterAwakeningCostBase da) {
@@ -198,13 +213,15 @@ new() { NameHash = 1499963410, TypeHash = 1798982289 }, /* Int32 Level */
 new() { NameHash = 1731065367, TypeHash = 1798982289 }, /* Int32 Exp */
 new() { NameHash = 1714641353, TypeHash = 3333469098 }, /* CustomBoolean Status */
 new() { NameHash = 4214230326, TypeHash = 1798982289 }, /* Int32 Id */
-/* Definition Count: 5 */
+new() { NameHash = 3871067742, TypeHash = 3333469098 }, /* CustomBoolean IsActive */
+/* Definition Count: 6 */
 };
 public System.Int32 __r_Grade_Ovr { set { Grade = value; } }
 public System.Int32 __r_Level_Ovr { set { Level = value; } }
 public System.Int32 __r_Exp_Ovr { set { Exp = value; } }
 public alpoLib.Core.Foundation.CustomBoolean __r_Status_Ovr { set { Status = value; } }
 public System.Int32 __r_Id_Ovr { set { Id = value; } }
+public alpoLib.Core.Foundation.CustomBoolean __r_IsActive_Ovr { set { IsActive = value; } }
 }
 public sealed class __r_CharacterExpBase_1245192702_Serializer : SerializerBase<alpoLib.Sample.Data.CharacterExpBase> {
 public override SchemeDefinition[] GetSchemeDefinitions() { return __r_CharacterExpBase_1245192702_Wrapped.__schema__; }
@@ -215,6 +232,7 @@ da.__r_Level_Ovr = stream.ReadS32();
 da.__r_Exp_Ovr = stream.ReadS32();
 da.__r_Status_Ovr = stream.ReadCustomBoolean();
 da.__r_Id_Ovr = stream.ReadS32();
+da.__r_IsActive_Ovr = stream.ReadCustomBoolean();
 return da; }
 public override void Serialize(BufferStream stream, alpoLib.Sample.Data.CharacterExpBase da) {
 stream.WriteS32(da.Grade);
@@ -222,12 +240,14 @@ stream.WriteS32(da.Level);
 stream.WriteS32(da.Exp);
 stream.WriteCustomBoolean(da.Status);
 stream.WriteS32(da.Id);
+stream.WriteCustomBoolean(da.IsActive);
 }
 public override alpoLib.Sample.Data.CharacterExpBase JsonToObject(JToken token) {
 var da = new alpoLib.Sample.Data.CharacterExpBase();
 da.Exp = token["exp"] != null ? token["exp"].ToObject<System.Int32>() : default;
 da.Grade = token["grade"] != null ? token["grade"].ToObject<System.Int32>() : default;
-da.Id = token["id"] != null ? token["id"].ToObject<System.Int32>() : default;
+da.Id = token["Id"] != null ? token["Id"].ToObject<System.Int32>() : default;
+da.IsActive = token["IsActive"] != null ? token["IsActive"].ToObject<alpoLib.Core.Foundation.CustomBoolean>() : default;
 da.Level = token["level"] != null ? token["level"].ToObject<System.Int32>() : default;
 da.Status = token["status"] != null ? token["status"].ToObject<alpoLib.Core.Foundation.CustomBoolean>() : default;
 return da; }
@@ -240,12 +260,14 @@ new() { NameHash = 3492698941, TypeHash = 1798982289 }, /* Int32 Grade */
 new() { NameHash = 1499963410, TypeHash = 1798982289 }, /* Int32 Level */
 new() { NameHash = 1714641353, TypeHash = 3333469098 }, /* CustomBoolean Status */
 new() { NameHash = 4214230326, TypeHash = 1798982289 }, /* Int32 Id */
-/* Definition Count: 4 */
+new() { NameHash = 3871067742, TypeHash = 3333469098 }, /* CustomBoolean IsActive */
+/* Definition Count: 5 */
 };
 public System.Int32 __r_Grade_Ovr { set { Grade = value; } }
 public System.Int32 __r_Level_Ovr { set { Level = value; } }
 public alpoLib.Core.Foundation.CustomBoolean __r_Status_Ovr { set { Status = value; } }
 public System.Int32 __r_Id_Ovr { set { Id = value; } }
+public alpoLib.Core.Foundation.CustomBoolean __r_IsActive_Ovr { set { IsActive = value; } }
 }
 public sealed class __r_CharacterLevelBase_1737323998_Serializer : SerializerBase<alpoLib.Sample.Data.CharacterLevelBase> {
 public override SchemeDefinition[] GetSchemeDefinitions() { return __r_CharacterLevelBase_1737323998_Wrapped.__schema__; }
@@ -255,17 +277,20 @@ da.__r_Grade_Ovr = stream.ReadS32();
 da.__r_Level_Ovr = stream.ReadS32();
 da.__r_Status_Ovr = stream.ReadCustomBoolean();
 da.__r_Id_Ovr = stream.ReadS32();
+da.__r_IsActive_Ovr = stream.ReadCustomBoolean();
 return da; }
 public override void Serialize(BufferStream stream, alpoLib.Sample.Data.CharacterLevelBase da) {
 stream.WriteS32(da.Grade);
 stream.WriteS32(da.Level);
 stream.WriteCustomBoolean(da.Status);
 stream.WriteS32(da.Id);
+stream.WriteCustomBoolean(da.IsActive);
 }
 public override alpoLib.Sample.Data.CharacterLevelBase JsonToObject(JToken token) {
 var da = new alpoLib.Sample.Data.CharacterLevelBase();
 da.Grade = token["grade"] != null ? token["grade"].ToObject<System.Int32>() : default;
-da.Id = token["id"] != null ? token["id"].ToObject<System.Int32>() : default;
+da.Id = token["Id"] != null ? token["Id"].ToObject<System.Int32>() : default;
+da.IsActive = token["IsActive"] != null ? token["IsActive"].ToObject<alpoLib.Core.Foundation.CustomBoolean>() : default;
 da.Level = token["level"] != null ? token["level"].ToObject<System.Int32>() : default;
 da.Status = token["status"] != null ? token["status"].ToObject<alpoLib.Core.Foundation.CustomBoolean>() : default;
 return da; }
@@ -281,12 +306,14 @@ new() { NameHash = 422475319, TypeHash = 1798982289 }, /* (Compound) Int32 Rewar
 new() { NameHash = 1946898862, TypeHash = 1830732134 }, /* Reward Reward */
 new() { NameHash = 1714641353, TypeHash = 3333469098 }, /* CustomBoolean Status */
 new() { NameHash = 4214230326, TypeHash = 1798982289 }, /* Int32 Id */
-/* Definition Count: 7 */
+new() { NameHash = 3871067742, TypeHash = 3333469098 }, /* CustomBoolean IsActive */
+/* Definition Count: 8 */
 };
 public System.Int32 __r_RewardGroupId_Ovr { set { RewardGroupId = value; } }
 public alpoLib.Sample.Data.Reward __r_Reward_Ovr { set { Reward = value; } }
 public alpoLib.Core.Foundation.CustomBoolean __r_Status_Ovr { set { Status = value; } }
 public System.Int32 __r_Id_Ovr { set { Id = value; } }
+public alpoLib.Core.Foundation.CustomBoolean __r_IsActive_Ovr { set { IsActive = value; } }
 }
 public sealed class __r_RewardBase_4157815432_Serializer : SerializerBase<alpoLib.Sample.Data.RewardBase> {
 public override SchemeDefinition[] GetSchemeDefinitions() { return __r_RewardBase_4157815432_Wrapped.__schema__; }
@@ -296,16 +323,19 @@ da.__r_RewardGroupId_Ovr = stream.ReadS32();
 da.__r_Reward_Ovr = DeserializeComp<alpoLib.Sample.Data.Reward, __r_Reward_1658775395_Serializer>(stream);
 da.__r_Status_Ovr = stream.ReadCustomBoolean();
 da.__r_Id_Ovr = stream.ReadS32();
+da.__r_IsActive_Ovr = stream.ReadCustomBoolean();
 return da; }
 public override void Serialize(BufferStream stream, alpoLib.Sample.Data.RewardBase da) {
 stream.WriteS32(da.RewardGroupId);
 SerializeComp<alpoLib.Sample.Data.Reward, __r_Reward_1658775395_Serializer>(stream, da.Reward);
 stream.WriteCustomBoolean(da.Status);
 stream.WriteS32(da.Id);
+stream.WriteCustomBoolean(da.IsActive);
 }
 public override alpoLib.Sample.Data.RewardBase JsonToObject(JToken token) {
 var da = new alpoLib.Sample.Data.RewardBase();
-da.Id = token["id"] != null ? token["id"].ToObject<System.Int32>() : default;
+da.Id = token["Id"] != null ? token["Id"].ToObject<System.Int32>() : default;
+da.IsActive = token["IsActive"] != null ? token["IsActive"].ToObject<alpoLib.Core.Foundation.CustomBoolean>() : default;
 da.Reward = new alpoLib.Sample.Data.Reward {
 Type = token["reward_type"] != null ? token["reward_type"].ToObject<alpoLib.Sample.Data.AssetType>() : default,
 Id = token["reward_id"] != null ? token["reward_id"].ToObject<System.Int32>() : default,
