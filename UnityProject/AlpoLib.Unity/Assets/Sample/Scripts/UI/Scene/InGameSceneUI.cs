@@ -3,7 +3,7 @@ using alpoLib.Sample.InGame.Feature.UI;
 using alpoLib.Sample.Scene;
 using alpoLib.Sample.UI.Hud;
 using alpoLib.UI;
-using UnityEngine;
+using alpoLib.UI.Hud;
 
 namespace alpoLib.Sample.UI
 {
