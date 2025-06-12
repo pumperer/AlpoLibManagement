@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using alpoLib.Sample.InGame.Feature.UI;
 using alpoLib.Sample.Scene;
+using alpoLib.Sample.UI.Hud;
 using alpoLib.UI;
 using UnityEngine;
 
@@ -9,12 +10,16 @@ namespace alpoLib.Sample.UI
     public class InGameSceneUI : SceneUIBase
     {
         private InGameScene Scene => CurrentScene as InGameScene;
-        private HashSet<IInGameFeatureUI> _uiFeatures = new();
+        private readonly HashSet<IInGameFeatureUI> _uiFeatures = new();
+        private HudItemController _hudItemController;
 
         public override void OnInitialize()
         {
             base.OnInitialize();
-            AddFeatureUI(new InGameScoreOnHitAndKillFeatureUI(this));
+            _hudItemController = new HudItemController(GetComponentsInChildren<HudItemBase>(true));
+            
+            AddFeatureUI(new InGameScoreOnHitFeatureUI(this, _hudItemController.FindFirstHudItem<IFeatureUIScore>()));
+            AddFeatureUI(new InGameKillCountFeatureUI(this, _hudItemController.FindFirstHudItem<IFeatureUIKillCount>()));
         }
 
         private void AddFeatureUI(IInGameFeatureUI featureUI)

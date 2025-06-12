@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace alpoLib.Sample.InGame.Feature
 {
-    public class InGameScoreOnHitAndKillFeature : InGameFeatureBase
+    public class InGameScoreOnHitFeature : InGameFeatureBase
     {
-        private InGameScoreOnHitAndKillFeatureUI UI => FeatureUI as InGameScoreOnHitAndKillFeatureUI;
+        private InGameScoreOnHitFeatureUI UI => FeatureUI as InGameScoreOnHitFeatureUI;
         private readonly int _scorePerHit;
         private readonly int _scorePerKill;
         private int _score;
 
-        public InGameScoreOnHitAndKillFeature(InGameScene scene, int scorePerHit, int scorePerKill) : base(scene)
+        public InGameScoreOnHitFeature(InGameScene scene, int scorePerHit, int scorePerKill) : base(scene)
         {
             _scorePerHit = scorePerHit;
             _scorePerKill = scorePerKill;

@@ -38,18 +38,21 @@ namespace alpoLib.Sample.Scene
         
         private async Awaitable OnLoadAsync()
         {
-            AddFeature(new InGameScoreOnHitAndKillFeature(this, 10, 100));
+            AddFeature(new InGameScoreOnHitFeature(this, 10, 100));
+            AddFeature(new InGameKillCountFeature(this));
             SceneUI.InitFeatures();
             
             await EnemySpawner.Instance.LoadAsync();
             
             mainPlayer.Initialize(this);
-            for (int i = 0; i < 5; i++)
+            for (var i = 0; i < 5; i++)
                 SpawnEnemy();
 
             IsLoadingComplete = true;
         }
 
+        #region Feature Management
+        
         private void AddFeature(InGameFeatureBase feature)
         {
             _features.Add(feature);
@@ -67,7 +70,11 @@ namespace alpoLib.Sample.Scene
         {
             return (T)GetFeature(typeof(T));
         }
+        
+        #endregion
 
+        #region Feature Broadcast
+        
         public void OnHit(CharacterBase attacker, float damage, CharacterBase hitter)
         {
             foreach (var feature in _features)
@@ -81,6 +88,8 @@ namespace alpoLib.Sample.Scene
             
             Invoke(nameof(SpawnEnemy), 1f);
         }
+        
+        #endregion
         
         public void SpawnEnemy()
         {
