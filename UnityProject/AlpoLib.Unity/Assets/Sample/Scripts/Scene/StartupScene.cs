@@ -19,7 +19,7 @@ namespace alpoLib.Sample.Scene
 
         public override void OnOpen()
         {
-            _ = SceneManager.Instance.OpenSceneAsync<TitleScene>();
+            _ = SceneManager.Instance.OpenSceneAsync<TitleScene>(param: new TitleSceneParam());
         }
     }
 }

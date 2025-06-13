@@ -1,3 +1,4 @@
+using alpoLib.Data;
 using alpoLib.Sample.UI;
 using alpoLib.UI.Scene;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 namespace alpoLib.Sample.Scene
 {
     [SceneDefine("Sample/Addr/Scenes/TitleScene.unity", SceneResourceType.Addressable)]
+    [LoadingBlockDefinition(typeof(TitleSceneLoadingBlock))]
     public class TitleScene : SceneBase, ILoadingProgressChangeListener
     {
         [SerializeField] private UIProgressComp loadingProgressComp;
@@ -31,6 +33,22 @@ namespace alpoLib.Sample.Scene
         {
             loadingProgressComp.SetProgress(task.Progress);
             loadingProgressComp.SetText(task.ProgressMessage);
+        }
+    }
+    
+    public class TitleSceneParam : SceneParam
+    {
+    }
+    
+    public class TitleSceneInitData : SceneInitData
+    {
+    }
+    
+    public class TitleSceneLoadingBlock : SceneLoadingBlock<TitleSceneParam, TitleSceneInitData>
+    {
+        public override TitleSceneInitData MakeInitData(TitleSceneParam param)
+        {
+            return new TitleSceneInitData();
         }
     }
 }
