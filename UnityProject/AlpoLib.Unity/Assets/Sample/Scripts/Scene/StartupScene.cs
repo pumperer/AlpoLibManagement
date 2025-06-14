@@ -14,12 +14,12 @@ namespace alpoLib.Sample.Scene
             alpoLib.Data.Module.Initialize(new alpoLib.Data.DataModuleInitParam());
             CoroutineTaskManager.Init(true);
             TaskScheduler.Init(true);
-            _ = SceneManager.Initialize(this);
+            AwaitableHelper.Run(() => SceneManager.Initialize(this));
         }
 
         public override void OnOpen()
         {
-            _ = SceneManager.Instance.OpenSceneAsync<TitleScene>(param: new TitleSceneParam());
+            AwaitableHelper.Run(() => SceneManager.Instance.OpenSceneAsync<TitleScene>(param: new TitleSceneParam()));
         }
     }
 }

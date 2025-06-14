@@ -33,7 +33,7 @@ namespace alpoLib.Sample.Scene
         public override void OnOpen()
         {
             base.OnOpen();
-            _ = OnLoadAsync();
+            AwaitableHelper.Run(OnLoadAsync);
         }
         
         private async Awaitable OnLoadAsync()
