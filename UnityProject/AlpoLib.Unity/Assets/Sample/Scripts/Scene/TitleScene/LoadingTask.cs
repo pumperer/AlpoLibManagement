@@ -1,3 +1,4 @@
+using System;
 using alpoLib.UI.Scene;
 using alpoLib.Util;
 using UnityEngine;
@@ -29,7 +30,7 @@ namespace alpoLib.Sample.Scene
         public override void OnEnter(LoadingTaskMachine machine)
         {
             machine.Listener.OnLoadingProgressChanged(this);
-            _ = ProcessLoadingAsync(machine);
+            AwaitableHelper.Run(() => ProcessLoadingAsync(machine));
         }
 
         private async Awaitable ProcessLoadingAsync(LoadingTaskMachine machine)
@@ -82,7 +83,7 @@ namespace alpoLib.Sample.Scene
         
         protected override async Awaitable OnLoadingAsync(LoadingTaskMachine machine)
         {
-            _ = SceneManager.Instance.OpenSceneAsync<InGameScene>();
+            AwaitableHelper.Run(() => SceneManager.Instance.OpenSceneAsync<InGameScene>());
         }
     }
 }
