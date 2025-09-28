@@ -14,6 +14,7 @@ namespace alpoLib.Sample.Scene
             alpoLib.Data.Module.Initialize(new alpoLib.Data.DataModuleInitParam());
             CoroutineTaskManager.Init(true);
             TaskScheduler.Init(true);
+            InternetAvailableChecker.InitializeWithDefaults();
             AwaitableHelper.Run(() => SceneManager.Initialize(this));
         }
 

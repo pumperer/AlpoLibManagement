@@ -4,8 +4,8 @@ using alpoLib.Sample.Character;
 using alpoLib.Sample.InGame;
 using alpoLib.Sample.InGame.Feature;
 using alpoLib.Sample.UI;
-using alpoLib.UI;
 using alpoLib.UI.Scene;
+using alpoLib.Util;
 using UnityEngine;
 
 namespace alpoLib.Sample.Scene
@@ -35,7 +35,13 @@ namespace alpoLib.Sample.Scene
             base.OnOpen();
             AwaitableHelper.Run(OnLoadAsync);
         }
-        
+
+        public override void OnClose()
+        {
+            base.OnClose();
+            StopInternetCheck();
+        }
+
         private async Awaitable OnLoadAsync()
         {
             AddFeature(new InGameScoreOnHitFeature(this, 10, 100));
@@ -47,6 +53,8 @@ namespace alpoLib.Sample.Scene
             mainPlayer.Initialize(this);
             for (var i = 0; i < 5; i++)
                 SpawnEnemy();
+
+            StartInternetCheck();
 
             IsLoadingComplete = true;
         }
@@ -94,7 +102,24 @@ namespace alpoLib.Sample.Scene
         public void SpawnEnemy()
         {
             var enemy = EnemySpawner.Instance.SpawnEnemy();
-            enemy.Initialize(this);
+            enemy?.Initialize(this);
+        }
+
+        private void StartInternetCheck()
+        {
+            InternetAvailableChecker.OnStatusChanged += OnInternetAvailableStatusChanged;
+            InternetAvailableChecker.StartChecking();
+        }
+
+        private void StopInternetCheck()
+        {
+            InternetAvailableChecker.OnStatusChanged -= OnInternetAvailableStatusChanged;
+            InternetAvailableChecker.StopChecking();
+        }
+
+        private void OnInternetAvailableStatusChanged(InternetAvailableChecker.EStatus prevStatus, InternetAvailableChecker.EStatus newStatus)
+        {
+            Debug.Log($"Internet status changed: {prevStatus} -> {newStatus}");
         }
     }
 }
