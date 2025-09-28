@@ -1,19 +1,30 @@
-using alpoLib.Sample.WebApiClient.Services;
 using alpoLib.Util.WebApiClient;
+using alpoLib.Sample.Web.Services;
 
-namespace alpoLib.Sample.WebApiClient
+namespace alpoLib.Sample.Web
 {
-    public class ApiManager : Util.WebApiClient.WebApiClient
+    /// <summary>
+    /// Web API 관리자 샘플 클래스
+    /// WebApiClient를 상속받아 구체적인 API 클라이언트 구현 제공
+    /// </summary>
+    public class ApiManager : WebApiClient
     {
         private static ApiManager _instance;
         
-        private AuthService _authService;
-        private UserService _userService;
-        private GameDataService _gameDataService;
+        /// <summary>
+        /// 인증 서비스에 대한 정적 접근자
+        /// </summary>
+        public static AuthService Auth => _instance != null ? new AuthService(_instance) : null;
         
-        public static AuthService Auth => _instance?._authService;
-        public static UserService User => _instance?._userService;
-        public static GameDataService GameData => _instance?._gameDataService;
+        /// <summary>
+        /// 사용자 서비스에 대한 정적 접근자
+        /// </summary>
+        public static UserService User => _instance != null ? new UserService(_instance) : null;
+        
+        /// <summary>
+        /// 게임 데이터 서비스에 대한 정적 접근자
+        /// </summary>
+        public static GameDataService GameData => _instance != null ? new GameDataService(_instance) : null;
 
         protected override void OnHttpError(long responseCode, string error)
         {
@@ -41,7 +52,12 @@ namespace alpoLib.Sample.WebApiClient
             }
         }
 
-        public static void Initialize(WebApiClientInitializeContext context)
+        /// <summary>
+        /// ApiManager를 초기화합니다
+        /// </summary>
+        /// <param name="context">초기화 컨텍스트</param>
+        /// <returns>초기화된 ApiManager 인스턴스</returns>
+        public static ApiManager Initialize(WebApiClientInitializeContext context)
         {
             if (_instance != null)
             {
@@ -53,16 +69,12 @@ namespace alpoLib.Sample.WebApiClient
             }
 
             _instance = Initialize<ApiManager>(context);
-            _instance.InitService();
+            return _instance;
         }
 
-        private void InitService()
-        {
-            _authService = new AuthService(this);
-            _userService = new UserService(this);
-            _gameDataService = new GameDataService(this);
-        }
-
+        /// <summary>
+        /// ApiManager가 초기화되었는지 확인
+        /// </summary>
         public static bool IsInitialized => _instance != null;
 
         private void OnDestroy()
