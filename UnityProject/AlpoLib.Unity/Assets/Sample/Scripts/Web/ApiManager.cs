@@ -9,22 +9,45 @@ namespace alpoLib.Sample.Web
     /// </summary>
     public class ApiManager : WebApiClient
     {
+        /// <summary>
+        /// 싱글톤 인스턴스
+        /// </summary>
         private static ApiManager _instance;
         
         /// <summary>
-        /// 인증 서비스에 대한 정적 접근자
+        /// ApiManager가 초기화되었는지 확인
         /// </summary>
-        public static AuthService Auth => _instance != null ? new AuthService(_instance) : null;
+        public static bool IsInitialized => _instance != null;
         
         /// <summary>
-        /// 사용자 서비스에 대한 정적 접근자
+        /// 인증 서비스
         /// </summary>
-        public static UserService User => _instance != null ? new UserService(_instance) : null;
+        private AuthService _authService;
         
         /// <summary>
-        /// 게임 데이터 서비스에 대한 정적 접근자
+        /// 인증 서비스
         /// </summary>
-        public static GameDataService GameData => _instance != null ? new GameDataService(_instance) : null;
+        public static AuthService Auth => _instance?._authService;
+        
+        /// <summary>
+        /// 사용자 서비스
+        /// </summary>
+        private UserService _userService;
+        
+        /// <summary>
+        /// 사용자 서비스
+        /// </summary>
+        public static UserService User => _instance?._userService;
+        
+        /// <summary>
+        /// 게임 데이터 서비스
+        /// </summary>
+        private GameDataService _gameDataService;
+        
+        /// <summary>
+        /// 게임 데이터 서비스
+        /// </summary>
+        public static GameDataService GameData => _instance?._gameDataService;
 
         protected override void OnHttpError(long responseCode, string error)
         {
@@ -56,8 +79,7 @@ namespace alpoLib.Sample.Web
         /// ApiManager를 초기화합니다
         /// </summary>
         /// <param name="context">초기화 컨텍스트</param>
-        /// <returns>초기화된 ApiManager 인스턴스</returns>
-        public static ApiManager Initialize(WebApiClientInitializeContext context)
+        public static void Initialize(WebApiClientInitializeContext context)
         {
             if (_instance != null)
             {
@@ -69,16 +91,22 @@ namespace alpoLib.Sample.Web
             }
 
             _instance = Initialize<ApiManager>(context);
-            return _instance;
+            _instance.InitServices();
         }
 
         /// <summary>
-        /// ApiManager가 초기화되었는지 확인
+        /// 서비스 인스턴스 초기화
         /// </summary>
-        public static bool IsInitialized => _instance != null;
-
-        private void OnDestroy()
+        private void InitServices()
         {
+            _authService = new AuthService(this);
+            _userService = new UserService(this);
+            _gameDataService = new GameDataService(this);
+        }
+
+        private new void OnDestroy()
+        {
+            base.OnDestroy();
             if (_instance == this)
             {
                 _instance = null;
